@@ -1,20 +1,20 @@
-LineageOS
+petalOS
 ===========
 
 Getting started
 ---------------
 
-To get started with Android/LineageOS, you'll need to get familiar with [Source Control Tools](https://source.android.com/setup/develop).
+To get started with petalOS maintaining/building, you'll need to get familiar with [Source Control Tools](https://source.android.com/setup/develop).
 
 To initialize your local repository using the LineageOS trees, use a command like this:
 ```
-repo init -u https://github.com/OnePlus-SM8850-Development/android.git -b lineage-23.2 --git-lfs
+repo init -u https://github.com/https://github.com/petalFTW/manifest.git --git-lfs
 ```
 Then to sync up:
 ```
 repo sync
 ```
-# Build LineageOS on OnePlus 15 / 15R / 15T / Ace 6T
+# Build petal
 
 # Set up environment
 ```bash
@@ -23,23 +23,6 @@ repo sync
 
 # Build the code
 ```bash
-brunch <codename>
+lunch petal_<codename>-bp4a-user
+m bacon
 ```
-
-Submitting patches
-------------------
-Patches are always welcome! Please submit your patches via LineageOS Gerrit!
-
-Simply follow our guide on [how to submit patches](https://wiki.lineageos.org/submitting-patch-howto.html).
-
-To view the status of your and others' patches, visit [LineageOS Gerrit Code Review](https://review.lineageos.org/).
-
-
-Buildbot
---------
-
-All supported devices are built weekly and periodically as changes are committed to ensure the source trees remain buildable.
-
-You can view the current build statuses at [LineageOS Buildkite](https://buildkite.com/lineageos).
-
-Builds produced weekly by the buildbot can be downloaded from [LineageOS downloads](https://download.lineageos.org/).
