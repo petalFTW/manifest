@@ -8,7 +8,7 @@ To get started with petalOS maintaining/building, you'll need to get familiar wi
 
 To initialize your local repository using the LineageOS trees, use a command like this:
 ```
-repo init -u https://github.com/https://github.com/petalFTW/manifest.git --git-lfs
+repo init -u https://github.com/petalFTW/manifest.git --git-lfs
 ```
 Then to sync up:
 ```
