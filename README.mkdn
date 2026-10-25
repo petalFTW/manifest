@@ -1,45 +1,79 @@
-LineageOS
-===========
+# petalOS
 
-Getting started
----------------
+petalOS is an Android 16 ROM based on LineageOS 23.2. This is the canonical
+manifest repository for fetching its source code. petalOS projects are maintained
+in the [petalFTW organization](https://github.com/petalFTW).
 
-To get started with Android/LineageOS, you'll need to get familiar with [Source Control Tools](https://source.android.com/setup/develop).
+## Get the source
 
-To initialize your local repository using the LineageOS trees, use a command like this:
-```
-repo init -u https://github.com/OnePlus-SM8850-Development/android.git -b lineage-23.2 --git-lfs
-```
-Then to sync up:
-```
-repo sync
-```
-# Build LineageOS on OnePlus 15 / 15R / 15T / Ace 6T
+Use a Linux build host with Git, Git LFS, and the Android `repo` tool installed.
+See the [Android build environment requirements](https://source.android.com/docs/setup/start/requirements)
+and [source control tools](https://source.android.com/docs/setup/reference/repo)
+for host setup.
 
-# Set up environment
+From an empty source directory, initialize the current development manifest:
+
 ```bash
-. build/envsetup.sh
+repo init --git-lfs \
+  -u https://github.com/petalFTW/manifest.git \
+  -b petal-23.2
+repo sync -c
 ```
 
-# Build the code
+Git LFS is required for the vendor firmware and application prebuilts. If your
+environment sets `GIT_LFS_SKIP_SMUDGE=1`, unset it before syncing so the checkout
+contains the binary files rather than LFS pointers.
+
+### Pinned source snapshot
+
+To fetch the source revisions captured on 25 October 2026, use
+[`snapshot-20261025.xml`](snapshot-20261025.xml) when initializing an empty source
+directory:
+
 ```bash
-brunch <codename>
+repo init --git-lfs \
+  -u https://github.com/petalFTW/manifest.git \
+  -b petal-23.2 \
+  -m snapshot-20261025.xml
+repo sync -c
 ```
 
-Submitting patches
-------------------
-Patches are always welcome! Please submit your patches via LineageOS Gerrit!
+`default.xml` follows the configured development branches. The snapshot pins each
+project to a specific commit.
 
-Simply follow our guide on [how to submit patches](https://wiki.lineageos.org/submitting-patch-howto.html).
+## Build petalOS
 
-To view the status of your and others' patches, visit [LineageOS Gerrit Code Review](https://review.lineageos.org/).
+The manifest includes these petalOS product configurations:
 
+| Device codename | Product |
+| --- | --- |
+| `fairlady` | `petal_fairlady` |
+| `infiniti` | `petal_infiniti` |
+| `macan` | `petal_macan` |
+| `macanc` | `petal_macanc` |
 
-Buildbot
---------
+From the source root, select the product explicitly. For example, to build
+`macanc`:
 
-All supported devices are built weekly and periodically as changes are committed to ensure the source trees remain buildable.
+```bash
+source build/envsetup.sh
+source vendor/lineage/vars/aosp_target_release
+lunch "petal_macanc-${aosp_target_release}-userdebug"
+m bacon
+```
 
-You can view the current build statuses at [LineageOS Buildkite](https://buildkite.com/lineageos).
+Replace `petal_macanc` with the product for your device. Using the `petal_` product
+selects the petalOS configuration; bare `brunch <codename>` selects the inherited
+LineageOS product instead.
 
-Builds produced weekly by the buildbot can be downloaded from [LineageOS downloads](https://download.lineageos.org/).
+## Source layout and upstreams
+
+- `default.xml` defines the platform projects and includes device and ROM snippets.
+- `snippets/petal.xml` defines the petalFTW remote and first-party projects.
+- The device snippets select device, kernel, and vendor repositories.
+- `snapshot-20261025.xml` records the pinned source checkout.
+
+The manifests also fetch unchanged dependencies from LineageOS, AOSP, and other
+upstreams. Names such as `LineageOS/*`, `lineage-23.2`, and `vendor/lineage` identify
+those dependencies and the inherited build infrastructure. Their original
+copyright and license notices remain with the source.
