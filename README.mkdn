@@ -26,15 +26,15 @@ contains the binary files rather than LFS pointers.
 
 ### Pinned source snapshot
 
-To fetch the source revisions captured on 25 October 2026, use
-[`snapshot-20261025.xml`](snapshot-20261025.xml) when initializing an empty source
+To fetch the source revisions captured on 6 November 2026, use
+[`snapshot-20261106.xml`](snapshot-20261106.xml) when initializing an empty source
 directory:
 
 ```bash
 repo init --git-lfs \
   -u https://github.com/petalFTW/manifest.git \
   -b petal-23.2 \
-  -m snapshot-20261025.xml
+  -m snapshot-20261106.xml
 repo sync -c
 ```
 
@@ -71,7 +71,7 @@ LineageOS product instead.
 - `default.xml` defines the platform projects and includes device and ROM snippets.
 - `snippets/petal.xml` defines the petalFTW remote and first-party projects.
 - The device snippets select device, kernel, and vendor repositories.
-- `snapshot-20261025.xml` records the pinned source checkout.
+- `snapshot-20261106.xml` records the pinned source checkout.
 
 The manifests also fetch unchanged dependencies from LineageOS, AOSP, and other
 upstreams. Names such as `LineageOS/*`, `lineage-23.2`, and `vendor/lineage` identify
